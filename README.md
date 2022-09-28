@@ -24,7 +24,7 @@
 
 ## Docs
 
-Run `/api-docs` end point to get the full api documentation
+Run `/api-docs` endpoint to get the full api documentation
 
 
 ## Execute Directly
@@ -47,7 +47,8 @@ http://localhost:3000/api/v1/requests/execute
 http://localhost:3000/api/v1/requests/register
 
 ```
-2- reply to client that your request is registered without wating the process.
+2- reply to the client that your request is registered without waiting for the process..
+
 3- fetch request status and data.
 
 ```
@@ -58,10 +59,15 @@ requestId    : Request Id
 
 
 # Background  Process:
-1- Register the request in DB with uniqe number and push to MQ.
-2- Consumer will  recive the message.
+1- Register the request in DB with a unique number and push it to MQ.
+
+2- The consumer will receive the message.
+
 3- Handling the request.
+
 4- Fetching the output.
+
 5- Update the request status and store the output.
-6- Notify Client.
+
+6- Notify the Client.
 
