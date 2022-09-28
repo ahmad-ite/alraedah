@@ -52,8 +52,6 @@ router.post(
     // validate payload
     if (!payload) res.status(400).send("Invalid Input");
 
-    // generate uniqe number for the request, Also we can us id of row in requests table
-
     try {
       const order = await RequestOrder.create({
         status: "pending",

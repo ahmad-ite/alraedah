@@ -18,6 +18,8 @@ const producer = Producer.create(config.RABBIT_MQ_URL!!);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//Documentation API
 app.use("/api-docs", swaggerMiddleware.ui, swaggerMiddleware.doc);
 app.use("/api-docs.json", (req: express.Request, res: express.Response) => {
   res.send(swaggerMiddleware.swaggerSpecification);
@@ -27,11 +29,15 @@ app.get("/", (req: express.Request, res: express.Response) => {
   res.send(`Welcome, Application is running at ${PORT}\n`);
 });
 
+// APIs
 app.use("/api/v1", requestRoute);
 app.use("/api/v1", requestQueueRoute);
-requestQueueRoute
-const consume = async () => {
-  const queueName = config.QUEUE_NAME;
+
+/**
+ * polling the messsages in Queue
+ * @param queueName :Queue Name
+ */
+const consume = async (queueName: string) => {
   const consumer: Consumer = Consumer.create(config.RABBIT_MQ_URL!!);
   consumer.consume(queueName, (msg) => {
     requestHandler.execute(msg);
@@ -42,10 +48,12 @@ const consume = async () => {
   });
 };
 
-consume();
+const queueName = config.QUEUE_NAME;
+consume(queueName);
 
 const start = async () => {
   try {
+    //connect to mongo db
     await mongoose.connect(process.env.DB_URL, { dbName: process.env.DB_NAME });
     app.listen(PORT, () => {
       console.log(`App running on port http://localhost:${PORT}`);

@@ -13,7 +13,7 @@
 ## Usage Server
 
 - Clone/Download a repo 
-- Run `cd server`
+- Run `cd alraedah`
 - Run `cp .env.Example .env` and update MONGO DB && MQ credentials 
 - Run `npm i`
 - Run `npm start` 
